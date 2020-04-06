@@ -40,11 +40,11 @@ always @(*) begin
 		default: begin
 			rs1 = command[25:21];
 			rs2 = command[20:16];
-			// ws = 0;
-			// shamt = 0;
-			// funct = 0;
+			ws = 0;
+			shamt = 0;
+			funct = 0;
 			imm = command[15:0];
-			// address = 0;
+			address = 0;
 		end
 	endcase // command_format
 end

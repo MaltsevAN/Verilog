@@ -12,16 +12,15 @@ reg [31:0] data [31:0];
 
 assign rdata = data[addr];
 
-always @(*) begin
-	if (MemWrite) begin
-		data[addr] <= wdata;
-	end
-end
-
 always @(posedge clk or posedge rst) begin
 	if(rst) begin
 		 for (i = 0; i < 32; i = i + 1) begin
 		 	data[i] <= i;
+		end
+	end
+	else begin
+		if (MemWrite) begin
+			data[addr] <= wdata;
 		end
 	end
 end

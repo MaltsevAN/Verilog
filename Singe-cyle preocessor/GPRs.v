@@ -17,16 +17,15 @@ reg [31:0] rf [31:0];
 assign rd1 = rf[rs1];
 assign rd2 = rf[rs2];
 
-always @(*) begin
-	if (RegWrite) begin
-		rf[ws] <= wd;
-	end
-end
-
 always @(posedge clk or posedge rst) begin
 	if(rst) begin
 		 for (i = 0; i < 32; i = i + 1) begin
 		 	rf[i] <= 2;
+		end
+	end
+	else begin
+		if (RegWrite) begin
+			rf[ws] <= wd;
 		end
 	end
 end
