@@ -1,6 +1,6 @@
 module PCcontrol (
 	input [31:0] br,
-	input [31:0] rind,
+	// input [31:0] rind,
 	input [31:0] jabs,
 	input [31:0] pc_plus_4,
 	input PCSrc,
