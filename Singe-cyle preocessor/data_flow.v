@@ -70,7 +70,7 @@ choose_write_reg choose_write_reg (
 );
 
 GPRs GPRs(
-	.clk(lk), 
+	.clk(сlk), 
 	.rst(rst), 
 	.rs1(rs1), 
 	.rs2(rs2), 
