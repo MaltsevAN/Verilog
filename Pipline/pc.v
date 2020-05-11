@@ -9,10 +9,10 @@ module pc(
 always @(posedge clk or posedge rst)
 begin
 	if(rst) begin
-		out = 0;
+		out <= 0;
 	end 
 	else if (PCWrite) begin
-		out = in;
+		out <= in;
 	end
 end
 

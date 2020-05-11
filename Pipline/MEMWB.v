@@ -1,5 +1,5 @@
-module MEMWB(clock,WB,Memout,ALUOut,RegRD,WBreg,Memreg,ALUreg,RegRDreg);
-input clock;
+module MEMWB(clock, rst,WB,Memout,ALUOut,RegRD,WBreg,Memreg,ALUreg,RegRDreg);
+input clock, rst;
 input [1:0] WB;
 input [4:0] RegRD;
 input [31:0] Memout,ALUOut;
@@ -10,19 +10,21 @@ reg [1:0] WBreg;
 reg [31:0] Memreg,ALUreg;
 reg [4:0] RegRDreg;
 
-initial begin
-	WBreg = 0;
-	Memreg = 0;
-	ALUreg = 0;
-	RegRDreg = 0;
-end
 
-always@(posedge clock)
+
+always@(posedge clock, posedge rst)
 begin
-	WBreg <= WB;
-	Memreg <= Memout;
-	ALUreg <= ALUOut;
-	RegRDreg <= RegRD;
+	if (rst) begin
+		WBreg = 0;
+		Memreg = 0;
+		ALUreg = 0;
+		RegRDreg = 0;
+	end else begin
+		WBreg <= WB;
+		Memreg <= Memout;
+		ALUreg <= ALUOut;
+		RegRDreg <= RegRD;
+	end
 end
 
 endmodule

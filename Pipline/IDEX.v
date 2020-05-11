@@ -1,6 +1,7 @@
-module IDEX(clock,WB,M,EX,DataA,DataB,imm_value,RegRs,RegRt,RegRd, OpCode, WBreg,Mreg,EXreg,DataAreg,
+module IDEX(clock,rst, WB,M,EX,DataA,DataB,imm_value,RegRs,RegRt,RegRd, OpCode, WBreg,Mreg,EXreg,DataAreg,
 DataBreg,imm_valuereg,RegRsreg,RegRtreg,RegRdreg, RegOpCode);
 input clock;
+input rst;
 input [1:0] WB;
 input [2:0] M;
 input [3:0] EX;
@@ -21,31 +22,35 @@ reg [3:0] EXreg;
 reg [31:0] DataAreg,DataBreg,imm_valuereg;
 reg [4:0] RegRsreg,RegRtreg,RegRdreg;
 
-initial begin
-	WBreg = 0;
-	Mreg = 0;
-	EXreg = 0;
-	DataAreg = 0;
-	DataBreg = 0;
-	imm_valuereg = 0;
-	RegRsreg = 0;
-	RegRtreg = 0;
-	RegRdreg = 0;
-	RegOpCode = 0;
-end
 
-always@(posedge clock)
+always@(posedge clock, posedge rst)
 begin
-	WBreg <= WB;
-	Mreg <= M;
-	EXreg <= EX;
-	DataAreg <= DataA;
-	DataBreg <= DataB;
-	imm_valuereg <= imm_value;
-	RegRsreg <= RegRs;
-	RegRtreg <= RegRt;
-	RegRdreg <= RegRd;
-	RegOpCode <= OpCode;
+	if (rst)
+	begin 
+		WBreg = 0;
+		Mreg = 0;
+		EXreg = 0;
+		DataAreg = 0;
+		DataBreg = 0;
+		imm_valuereg = 0;
+		RegRsreg = 0;
+		RegRtreg = 0;
+		RegRdreg = 0;
+		RegOpCode = 0;
+	end
+	else
+	begin
+		WBreg <= WB;
+		Mreg <= M;
+		EXreg <= EX;
+		DataAreg <= DataA;
+		DataBreg <= DataB;
+		imm_valuereg <= imm_value;
+		RegRsreg <= RegRs;
+		RegRtreg <= RegRt;
+		RegRdreg <= RegRd;
+		RegOpCode <= OpCode;
+	end
 end
 
 endmodule

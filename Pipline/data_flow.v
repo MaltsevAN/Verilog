@@ -25,7 +25,7 @@ wire ALUSrc;
 wire PCWrite;
 wire HazMuxCon;
 
-assign ALUSrc = ConOut[3];
+assign ALUSrc = ConOut[2];
 assign ExtSel = 1;
 assign IDcontrol = HazMuxCon ? ConOut : 0;
 assign PCSrc = ((rd1==rd2)&IDcontrol[6])|((rd1!=rd2)&bne);
@@ -56,6 +56,7 @@ wire [31:0] plus_4_out;
 IFID IFID(
 	.flush(IFFlush),
 	.clock(clk),
+	.rst(rst),
 	.IFIDWrite(IFIDWrite),
 	.PC_Plus4(plus_4_out),
 	.Inst(command),
@@ -121,6 +122,7 @@ wire [5:0] RegOpCode;
 
 IDEX IDEX(
 	.clock(clk),
+	.rst(rst),
 	.WB(IDcontrol[8:7]),
 	.M(IDcontrol[6:4]),
 	.EX(IDcontrol[3:0]),
@@ -204,6 +206,7 @@ wire [4:0] RegRDreg;
 
 EXMEM EXMEM(
 	.clock(clk),
+	.rst(rst),
 	.WB(WBreg_idex),
 	.M(Mreg_idex),
 	.ALUOut(alu_res),
@@ -238,6 +241,7 @@ wire [4:0] RegRDreg_mem_wb;
 
 MEMWB MEMWB(
 	.clock(clk),
+	.rst(rst),
 	.WB(WBreg),
 	.Memout(rdata),
 	.ALUOut(ALUreg),
@@ -281,7 +285,7 @@ WRcontrol WRcontrol (
 	.data_memory_out(Memreg),
 	.alu_out(ALUreg_mem_wb),
 	//.plus_4_out(plus_4_out),
-	.WBSrc(WBreg),
+	.WBSrc(WBreg[1]),
 
 	.out(wd)
 	);

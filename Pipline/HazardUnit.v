@@ -10,7 +10,7 @@ always@(IDRegRs,IDRegRt,EXRegRt,EXMemRead)
 	begin//stall
 		PCWrite = 0;
 		IFIDWrite = 0;
-		HazMuxCon = 1;
+		HazMuxCon = 0;
 	end
 	else
 	begin//no stall

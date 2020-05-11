@@ -21,11 +21,6 @@ always @(posedge rst) begin
 		 	data[i] <= i;
 		end
 	end
-	else begin
-		if (MemWrite) begin
-			data[addr] <= wdata;
-		end
-	end
 end
 
 always @(addr, wdata, MemWrite, MemRead)
