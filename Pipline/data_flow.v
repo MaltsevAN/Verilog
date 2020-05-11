@@ -286,7 +286,7 @@ WRcontrol WRcontrol (
 	.data_memory_out(Memreg),
 	.alu_out(ALUreg_mem_wb),
 	//.plus_4_out(plus_4_out),
-	.WBSrc(WBreg[1]),
+	.WBSrc(WBreg_mem_wb[1]),
 
 	.out(wd)
 	);
