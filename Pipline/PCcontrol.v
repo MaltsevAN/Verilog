@@ -9,7 +9,7 @@ module PCcontrol (
 	output [31:0] out	
 );
 
-wire PCMuxOut;
+wire [31:0] PCMuxOut;
 assign PCMuxOut = jump ? jabs : pc_plus_4;
 assign out = PCSrc ? br : PCMuxOut;
 
