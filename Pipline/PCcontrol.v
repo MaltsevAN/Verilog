@@ -6,12 +6,12 @@ module PCcontrol (
 	input PCSrc,
 	input jump,
 
-	output reg [31:0] out	
+	output [31:0] out	
 );
 
 wire PCMuxOut;
 assign PCMuxOut = jump ? jabs : pc_plus_4;
-assign nextpc = PCSrc ? br : PCMuxOut;
+assign out = PCSrc ? br : PCMuxOut;
 
 
 // always @(*) begin

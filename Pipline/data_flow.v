@@ -24,6 +24,7 @@ wire ExtSel;
 wire ALUSrc;
 wire PCWrite;
 wire HazMuxCon;
+wire PCSrc;
 
 assign ALUSrc = ConOut[2];
 assign ExtSel = 1;
