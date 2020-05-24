@@ -26,7 +26,7 @@ always @(posedge rst) begin
 		 	data[i] <= i;
 		 		
 		end
-		counter <= 3'b000;
+		counter <= 0;
 	// EndRead <= 1;
 	end
 end
@@ -41,13 +41,12 @@ if(MemRead) begin
 	if (!hit) begin
 		if (counter < 4) begin
 			rdata <= data[addr+counter];
-			counter = counter + 1;
+			counter <= counter + 1;
 			// EndRead <= 0;
 		end
-		// else begin
-		// 	EndRead <= 1;
-		// 	counter = 0;
-		// end
+		else begin
+			counter <= 0;
+		end
 	end
 end
 end
