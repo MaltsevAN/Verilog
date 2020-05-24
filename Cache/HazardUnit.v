@@ -18,7 +18,7 @@ output PCWrite, IFIDWrite, HazMuxCon, IDEXWrite, EXMEMWrite, MEMWBWrite;
 
 reg PCWrite, IFIDWrite, HazMuxCon, IDEXWrite, EXMEMWrite, MEMWBWrite;
 
-always@(IDRegRs,IDRegRt,EXRegRt,EXMemRead)
+always@(IDRegRs,IDRegRt,EXRegRt,EXMemRead, CacheStall)
 	if (CacheStall)
 	begin
 		PCWrite = 0;
@@ -30,15 +30,17 @@ always@(IDRegRs,IDRegRt,EXRegRt,EXMemRead)
 		MEMWBWrite = 0;
 	end
 	else begin
+
+		IDEXWrite = 1;
+		EXMEMWrite = 1;
+		MEMWBWrite = 1;
+
 		if(EXMemRead&((EXRegRt == IDRegRs)|(EXRegRt == IDRegRt)))
 		begin//stall
 			PCWrite = 0;
 			IFIDWrite = 0;
 			HazMuxCon = 0;
 
-			IDEXWrite = 1;
-			EXMEMWrite = 1;
-			MEMWBWrite = 1;
 		end
 		else
 		begin//no stall
@@ -46,9 +48,6 @@ always@(IDRegRs,IDRegRt,EXRegRt,EXMemRead)
 			IFIDWrite = 1;
 			HazMuxCon = 1;
 
-			IDEXWrite = 1;
-			EXMEMWrite = 1;
-			MEMWBWrite = 1;
 		end
 	end
 endmodule 

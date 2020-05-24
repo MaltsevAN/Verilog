@@ -42,7 +42,10 @@ if(MemRead) begin
 			// EndRead <= 0;
 		end
 		else begin
-			counter <= 0;
+			if (counter == 4)
+				counter <= counter + 1;
+			else
+				counter <= 0;
 		end
 	end
 end

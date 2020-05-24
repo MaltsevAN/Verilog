@@ -68,16 +68,8 @@ end
 
 always @(posedge clk)
 if(MemRead) begin
-	if (hit) begin
-		cache_data_index <= cache_data[index][127 : 96];
-		case(offset)
-		  2'b00: rdata <= cache_data[index][127 : 96];
-		  2'b01: rdata <= cache_data[index][95: 64];
-		  2'b10: rdata <= cache_data[index][63 : 32];
-		  2'b11: rdata <= cache_data[index][31 : 0];
-	  	endcase
-	end
-	else begin
+	if (!hit)
+	begin
 		if (counter != 0) begin
 		if (counter < 5) begin
 			case(offset_plus_counter)
@@ -97,6 +89,18 @@ if(MemRead) begin
 		end
 	end
 	end
+end
+
+always @(*) begin 
+	if (hit & MemRead) begin
+	cache_data_index <= cache_data[index][127 : 96];
+	case(offset)
+	  2'b00: rdata <= cache_data[index][127 : 96];
+	  2'b01: rdata <= cache_data[index][95: 64];
+	  2'b10: rdata <= cache_data[index][63 : 32];
+	  2'b11: rdata <= cache_data[index][31 : 0];
+  	endcase
+end
 end
 
 
