@@ -39,7 +39,7 @@ assign v = cache_data[index][156];
 assign hit = v & (tag == cache_data[index][155:128]);
 
 assign IsStall = MemRead & !hit;
-assign offset_plus_counter = offset + counter;
+assign offset_plus_counter = offset + counter -1;
 initial begin
 
 end
@@ -78,7 +78,8 @@ if(MemRead) begin
 	  	endcase
 	end
 	else begin
-		if (counter < 4) begin
+		if (counter != 0) begin
+		if (counter < 5) begin
 			case(offset_plus_counter)
 			  0: begin cache_data[index][127 : 96] = memory_word;  cache_data_index <= cache_data[index][127 : 96]; end
 			  1: begin cache_data[index][95: 64] = memory_word;   cache_data_index <= cache_data[index][95: 64]; end
@@ -94,6 +95,7 @@ if(MemRead) begin
 			cache_data[index][156] <= 1;
 			cache_data[index][155:128] <= tag;
 		end
+	end
 	end
 end
 
