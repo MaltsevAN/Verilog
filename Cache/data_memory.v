@@ -13,12 +13,9 @@ module data_memory(
 
 integer i;
 
-wire [31:0] mask;
 reg [2:0] counter;
 reg [31:0] rdata;
 reg [31:0] data [31:0];
-
-assign mask = 32'b11111111111111111111111111110000;
 
 always @(posedge rst) begin
 	if(rst) begin

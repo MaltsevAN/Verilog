@@ -9,7 +9,7 @@ module cache_memory(
 	input MemRead,
 	// input EndRead_from_memory,
 
-	output [156:0] cache_data_index,
+	output [31:0] cache_data_index,
 	output [1:0] offset_plus_counter,
 	output IsStall,
 	output hit,
@@ -25,8 +25,8 @@ wire [1:0] offset;
 integer int_offset;
 
 reg [31:0] rdata;
-reg [156:0] cache_data_index;
-reg [1:0] offset_plus_counter;
+reg [31:0] cache_data_index;
+wire [1:0] offset_plus_counter;
 
 reg [156:0] cache_data [3:0];
 
@@ -39,7 +39,7 @@ assign v = cache_data[index][156];
 assign hit = v & (tag == cache_data[index][155:128]);
 
 assign IsStall = MemRead & !hit;
-
+assign offset_plus_counter = offset + counter;
 initial begin
 
 end
@@ -69,8 +69,7 @@ end
 always @(posedge clk)
 if(MemRead) begin
 	if (hit) begin
-		cache_data_index <= cache_data[index];
-		offset_plus_counter <= offset + counter[1:0];
+		cache_data_index <= cache_data[index][127 : 96];
 		case(offset)
 		  2'b00: rdata <= cache_data[index][127 : 96];
 		  2'b01: rdata <= cache_data[index][95: 64];
@@ -80,21 +79,18 @@ if(MemRead) begin
 	end
 	else begin
 		if (counter < 4) begin
-			cache_data_index <= cache_data[index];
-			offset_plus_counter <= offset + counter[1:0];
-			case(offset + counter)
-			  0: cache_data[index][127 : 96] <= memory_word; 
-			  1: cache_data[index][95: 64] <= memory_word;
-			  2: cache_data[index][63 : 32] <= memory_word;
-			  3: cache_data[index][31 : 0] <= memory_word; 
+			case(offset_plus_counter)
+			  0: begin cache_data[index][127 : 96] = memory_word;  cache_data_index <= cache_data[index][127 : 96]; end
+			  1: begin cache_data[index][95: 64] = memory_word;   cache_data_index <= cache_data[index][95: 64]; end
+			  2: begin cache_data[index][63 : 32] = memory_word;   cache_data_index <= cache_data[index][63 : 32]; end
+			  3: begin cache_data[index][31 : 0] = memory_word;   cache_data_index <= cache_data[index][31 : 0]; end
 		  	endcase
 			cache_data[index][156] <= 0;
 			
 		end
 		else
 		begin
-			offset_plus_counter <= offset + counter[1:0];
-			cache_data_index <= cache_data[index];
+			cache_data_index <= cache_data[index][127 : 96];
 			cache_data[index][156] <= 1;
 			cache_data[index][155:128] <= tag;
 		end
