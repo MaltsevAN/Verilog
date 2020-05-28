@@ -1,0 +1,70 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Sun May 24 14:20:48 2020
+[*]
+[dumpfile] "C:\Users\Maltsev Alexander\Documents\Ó÷¸áà\Verilog\Cache\test.vcd"
+[dumpfile_mtime] "Sun May 24 14:09:29 2020"
+[dumpfile_size] 39091
+[savefile] "C:\Users\Maltsev Alexander\Documents\Ó÷¸áà\Verilog\Cache\cahce_0_1.gtkw"
+[timestart] 0
+[size] 1280 666
+[pos] -1 -1
+*-2.419949 3 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] testbanch.
+[treeopen] testbanch.single_cpu.
+[treeopen] testbanch.single_cpu.data_flow.
+[sst_width] 197
+[signals_width] 222
+[sst_expanded] 1
+[sst_vpaned_height] 176
+@28
+testbanch.clk
+@22
+testbanch.single_cpu.data_flow.inst_memory.inst[31:0]
+@23
+testbanch.single_cpu.data_flow.inst_memory.addr[31:0]
+@28
+testbanch.single_cpu.data_flow.inst_memory.inst[31:0]
+testbanch.single_cpu.data_flow.data_memory.MemRead
+testbanch.single_cpu.data_flow.data_memory.MemWrite
+testbanch.single_cpu.data_flow.cache_memory.index[1:0]
+@24
+testbanch.single_cpu.data_flow.cache_memory.v
+@28
+testbanch.single_cpu.data_flow.cache_memory.addr[31:0]
+@24
+testbanch.single_cpu.data_flow.cache_memory.counter[2:0]
+@28
+testbanch.single_cpu.data_flow.cache_memory.offset[1:0]
+@24
+testbanch.single_cpu.data_flow.cache_memory.offset_plus_counter[1:0]
+@28
+testbanch.single_cpu.data_flow.cache_memory.index[1:0]
+@24
+testbanch.single_cpu.data_flow.cache_memory.offset[1:0]
+@28
+testbanch.single_cpu.data_flow.cache_memory.hit
+@22
+testbanch.single_cpu.data_flow.cache_memory.tag[25:0]
+@24
+testbanch.single_cpu.data_flow.data_memory.counter[2:0]
+testbanch.single_cpu.data_flow.cache_memory.memory_word[31:0]
+testbanch.single_cpu.data_flow.cache_memory.cache_data_index[31:0]
+testbanch.single_cpu.data_flow.cache_memory.counter[2:0]
+testbanch.single_cpu.data_flow.data_memory.counter[2:0]
+testbanch.single_cpu.data_flow.cache_memory.rdata[31:0]
+@28
+testbanch.single_cpu.data_flow.cache_memory.IsStall
+@24
+testbanch.single_cpu.data_flow.cache_memory.rdata[31:0]
+@28
+testbanch.single_cpu.data_flow.data_memory.addr[31:0]
+@22
+testbanch.single_cpu.data_flow.MEMWB.ALUOut[31:0]
+testbanch.single_cpu.data_flow.MEMWB.Memout[31:0]
+@28
+testbanch.single_cpu.data_flow.MEMWB.MEMWBWrite
+testbanch.single_cpu.data_flow.HazardUnit.CacheStall
+testbanch.single_cpu.data_flow.HazardUnit.MEMWBWrite
+[pattern_trace] 1
+[pattern_trace] 0

@@ -1,16 +1,14 @@
-module cache_memory(
+module cache_memory_l1(
 	input clk,
 	input rst,
 	input [31:0] addr,
 	input [31:0] wdata,
-	input [31:0] memory_word,
+	input [31:0] l2_word,
 	input [2:0] counter,
 	input MemWrite,
 	input MemRead,
 	// input EndRead_from_memory,
 
-	output [31:0] cache_data_index,
-	output [1:0] offset_plus_counter,
 	output IsStall,
 	output hit,
 	output [31:0] rdata);
@@ -18,7 +16,7 @@ module cache_memory(
 integer i;
 
 wire v;
-wire [28:0] tag;
+wire [25:0] tag;
 wire [1:0] index;
 wire [1:0] offset;
 
@@ -47,7 +45,7 @@ end
 always @(posedge rst) begin
 	if(rst) begin
 		for (i = 0; i < 4; i = i + 1) begin
-		 	cache_data[i] <= 0;
+		 	cache_data[i] <= 1;
 		end
 	end
 end
@@ -73,10 +71,10 @@ if(MemRead) begin
 		if (counter != 0) begin
 		if (counter < 5) begin
 			case(offset_plus_counter)
-			  0: begin cache_data[index][127 : 96] = memory_word;  cache_data_index <= cache_data[index][127 : 96]; end
-			  1: begin cache_data[index][95: 64] = memory_word;   cache_data_index <= cache_data[index][95: 64]; end
-			  2: begin cache_data[index][63 : 32] = memory_word;   cache_data_index <= cache_data[index][63 : 32]; end
-			  3: begin cache_data[index][31 : 0] = memory_word;   cache_data_index <= cache_data[index][31 : 0]; end
+			  0: begin cache_data[index][127 : 96] = l2_word;  cache_data_index <= cache_data[index][127 : 96]; end
+			  1: begin cache_data[index][95: 64] = l2_word;   cache_data_index <= cache_data[index][95: 64]; end
+			  2: begin cache_data[index][63 : 32] = l2_word;   cache_data_index <= cache_data[index][63 : 32]; end
+			  3: begin cache_data[index][31 : 0] = l2_word;   cache_data_index <= cache_data[index][31 : 0]; end
 		  	endcase
 			cache_data[index][156] <= 0;
 			

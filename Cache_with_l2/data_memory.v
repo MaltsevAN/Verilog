@@ -1,19 +1,19 @@
 module data_memory(
 	input clk,
 	input rst,
-	input hit,
+	input l2_hit,
 	input [31:0] addr,
 	input [31:0] wdata,
 	input MemWrite,
 	input MemRead,
 
-	output [2:0] counter,
+	output [3:0] counter,
 	// output EndRead,
 	output [31:0] rdata);
 
 integer i;
 
-reg [2:0] counter;
+reg [3:0] counter;
 reg [31:0] rdata;
 reg [31:0] data [31:0];
 
@@ -35,14 +35,14 @@ end
 
 always @(posedge clk) begin
 if(MemRead) begin
-	if (!hit) begin
-		if (counter < 4) begin
+	if (!l2_hit) begin
+		if (counter < 8) begin
 			rdata <= data[addr+counter];
 			counter <= counter + 1;
 			// EndRead <= 0;
 		end
 		else begin
-			if (counter == 4)
+			if (counter == 8)
 				counter <= counter + 1;
 			else
 				counter <= 0;
@@ -53,4 +53,3 @@ end
 
 
 endmodule
-
